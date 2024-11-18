@@ -1,0 +1,255 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 15.3
+-- Dumped by pg_dump version 15.3
+
+-- Started on 2024-11-17 22:40:06
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 217 (class 1259 OID 91081)
+-- Name: note; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.note (
+    id integer NOT NULL,
+    author integer NOT NULL,
+    text text NOT NULL
+);
+
+
+ALTER TABLE public.note OWNER TO postgres;
+
+--
+-- TOC entry 216 (class 1259 OID 91080)
+-- Name: note_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.note_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.note_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3341 (class 0 OID 0)
+-- Dependencies: 216
+-- Name: note_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.note_id_seq OWNED BY public.note.id;
+
+
+--
+-- TOC entry 215 (class 1259 OID 91072)
+-- Name: user; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."user" (
+    id integer NOT NULL,
+    username character varying(50) NOT NULL,
+    password character varying(50) NOT NULL
+);
+
+
+ALTER TABLE public."user" OWNER TO postgres;
+
+--
+-- TOC entry 214 (class 1259 OID 91071)
+-- Name: user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.user_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.user_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3344 (class 0 OID 0)
+-- Dependencies: 214
+-- Name: user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.user_id_seq OWNED BY public."user".id;
+
+
+--
+-- TOC entry 3180 (class 2604 OID 91084)
+-- Name: note id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.note ALTER COLUMN id SET DEFAULT nextval('public.note_id_seq'::regclass);
+
+
+--
+-- TOC entry 3179 (class 2604 OID 91075)
+-- Name: user id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."user" ALTER COLUMN id SET DEFAULT nextval('public.user_id_seq'::regclass);
+
+
+--
+-- TOC entry 3333 (class 0 OID 91081)
+-- Dependencies: 217
+-- Data for Name: note; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.note (id, author, text) FROM stdin;
+0	0	test
+1	0	text
+3	1	4c6f72656d20697073756d20646f6c6f72207369742c20616d657420636f6e7365637465747572206164697069736963696e6720656c69742e204e697369206c617564616e7469756d20766572697461746973207365642c20667567696174206c61626f72696f73616d2073657175692071756f206f666669636961206e657175652061737065726e6174757220697073756d206e616d20666163696c69732c2061742c20646f6c6f7265207175697320636f72706f726973206578636570747572693f204d696e696d612c20636f72706f72697320717561652e0505050505
+2	0	Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nisi laudantium veritatis sed, fugiat laboriosam sequi quo officia neque aspernatur ipsum nam facilis, at, dolore quis corporis excepturi? Minima, corporis quae.\n
+4	5	48656c6c6f20776f726c640505050505
+5	5	486920686f772061726520796f750202
+6	1	d09fd180d0b8d0b2d0b5d18220d0bcd0b8d1800505050505
+\.
+
+
+--
+-- TOC entry 3331 (class 0 OID 91072)
+-- Dependencies: 215
+-- Data for Name: user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."user" (id, username, password) FROM stdin;
+0	username	username
+1	7573657204040404	7573657204040404
+3	4e61737479610202	3131310505050505
+4	4e61737469610202	3132330505050505
+5	646f630505050505	646f630505050505
+9	3132330505050505	3132330505050505
+\.
+
+
+--
+-- TOC entry 3345 (class 0 OID 0)
+-- Dependencies: 216
+-- Name: note_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.note_id_seq', 6, true);
+
+
+--
+-- TOC entry 3346 (class 0 OID 0)
+-- Dependencies: 214
+-- Name: user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.user_id_seq', 9, true);
+
+
+--
+-- TOC entry 3186 (class 2606 OID 91088)
+-- Name: note note_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.note
+    ADD CONSTRAINT note_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3182 (class 2606 OID 91077)
+-- Name: user user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."user"
+    ADD CONSTRAINT user_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3184 (class 2606 OID 91079)
+-- Name: user user_username_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."user"
+    ADD CONSTRAINT user_username_key UNIQUE (username);
+
+
+--
+-- TOC entry 3187 (class 2606 OID 91089)
+-- Name: note note_author_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.note
+    ADD CONSTRAINT note_author_fkey FOREIGN KEY (author) REFERENCES public."user"(id);
+
+
+--
+-- TOC entry 3339 (class 0 OID 0)
+-- Dependencies: 5
+-- Name: SCHEMA public; Type: ACL; Schema: -; Owner: pg_database_owner
+--
+
+GRANT USAGE ON SCHEMA public TO gost_notes_user;
+
+
+--
+-- TOC entry 3340 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: TABLE note; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE public.note TO gost_notes_user;
+
+
+--
+-- TOC entry 3342 (class 0 OID 0)
+-- Dependencies: 216
+-- Name: SEQUENCE note_id_seq; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT SELECT,USAGE ON SEQUENCE public.note_id_seq TO gost_notes_user;
+
+
+--
+-- TOC entry 3343 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: TABLE "user"; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT SELECT,INSERT,DELETE,UPDATE ON TABLE public."user" TO gost_notes_user;
+
+
+--
+-- TOC entry 2040 (class 826 OID 91095)
+-- Name: DEFAULT PRIVILEGES FOR TABLES; Type: DEFAULT ACL; Schema: public; Owner: postgres
+--
+
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT SELECT,INSERT,DELETE,UPDATE ON TABLES  TO gost_notes_user;
+
+
+-- Completed on 2024-11-17 22:40:06
+
+--
+-- PostgreSQL database dump complete
+--
+
